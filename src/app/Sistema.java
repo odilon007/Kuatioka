@@ -71,7 +71,7 @@ public class Sistema {
                 atualizarUsuario();
                 break;
             case 3:
-                // deletarUsuarios();
+                deletarUsuario();
                 break;
 
             case 0:
@@ -268,6 +268,47 @@ public class Sistema {
         }
         menu.enterSaida(sc);
         consultar();
+    }
+
+
+    //DELETAR USUÁRIOS
+    private void deletarUsuario() {
+        System.out.println("Digite o ID do usuário que deseja editar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Usuario user = users.get(id);
+        if (user == null) {
+            System.out.println("Usuário não existe");
+            atualizarUsuario();
+            return;
+        }
+        System.out.println("Usuário encontrado");
+        System.out.printf("%-5s %-20s %-40s %-15s\n",
+                user.getId(),
+                user.getNome(),
+                user.getEmail(),
+                user.getTipo()
+        );
+        System.out.println("Tem certeza que deseja excluir: ");
+        System.out.println("[1] sim");
+        System.out.println("[2] não");
+
+        int op = sc.nextInt();
+        sc.nextLine();
+        switch (op) {
+            case 1:
+                users.remove(id);
+                System.out.println("Usuário removido com sucesso!");
+                menu.enterSaida(sc);
+                break;
+            case 2:
+                break;
+            default:
+                menu.opInvalido();
+                deletarUsuario();
+                break;
+        }
     }
 
 }
