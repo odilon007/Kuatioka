@@ -1,8 +1,6 @@
 package services;
 
-import dominio.Estudante;
-import dominio.Funcionario;
-import dominio.Usuario;
+import dominio.*;
 import repository.RepositorioUsuarios;
 import ui.Menu;
 
@@ -54,15 +52,16 @@ public class GerenciadorUsuarios {
 
     // CADASTRAR USUÁRIOS
     private void cadastrarUsuario() {
-        System.out.println("[1] Funcionario");
-        System.out.println("[2] Estudante");
+        System.out.println("[1] Funcionário Administrativo");
+        System.out.println("[2] Aluno Graduação");
+        System.out.println("[3] Aluno Pós-Graduação");
+        System.out.println("[4] Professor");
         System.out.println("[0] Voltar");
 
         int op = sc.nextInt();
         sc.nextLine();
 
-
-        if (op != 1 && op != 2) return;
+        if (op > 4 || op <= 0) return;
 
         System.out.printf("Nome: ");
         String nome = sc.nextLine();
@@ -75,7 +74,13 @@ public class GerenciadorUsuarios {
                 cadastrarFuncionario(nome, email);
                 break;
             case 2:
-                cadastrarEstudante(nome, email);
+                cadastrarAlunoGraduacao(nome, email);
+                break;
+            case 3:
+                cadastrarAlunoPosGraduacao(nome, email);
+                break;
+            case 4:
+                cadastrarProfessor(nome, email);
                 break;
             default:
                 menu.opInvalido();
@@ -97,16 +102,54 @@ public class GerenciadorUsuarios {
         menu.enterSaida(sc);
     }
 
-    private void cadastrarEstudante(String nome, String email) {
+    private void cadastrarAlunoGraduacao(String nome, String email) {
         System.out.printf("Digite sua matricula: ");
 
         String matricula = sc.nextLine();
-        Usuario estudante = new Estudante(nome, email, matricula);
-        repositorio.salvar(estudante);
+        System.out.printf("Digite seu curso: ");
 
-        System.out.println("Cadastro do estudante realizado com sucesso!");
+        String curso = sc.nextLine();
+
+        Aluno aluno = new AlunoGraduacao(nome, email, matricula, curso);
+
+        repositorio.salvar(aluno);
+
+        System.out.println("Cadastro do aluno realizado com sucesso!");
         menu.enterSaida(sc);
     }
+
+    private void cadastrarAlunoPosGraduacao(String nome, String email) {
+        System.out.printf("Digite sua matricula: ");
+
+        String matricula = sc.nextLine();
+        System.out.printf("Digite sua area de pesquisa : ");
+
+        String areaPesquisa = sc.nextLine();
+
+        Aluno aluno = new AlunoPosGraduacao(nome, email, matricula, areaPesquisa);
+
+        repositorio.salvar(aluno);
+
+        System.out.println("Cadastro do aluno realizado com sucesso!");
+        menu.enterSaida(sc);
+    }
+
+    private void cadastrarProfessor(String nome, String email) {
+        System.out.printf("Digite sua matricula: ");
+
+        String matricula = sc.nextLine();
+        System.out.printf("Digite seu curso: ");
+
+
+        Professor professor = new Professor(nome, email, matricula);
+
+        repositorio.salvar(professor);
+
+        System.out.println("Cadastro do aluno realizado com sucesso!");
+        menu.enterSaida(sc);
+    }
+
+
 
     // ATUALIZAR USUÁRIOS
     private void atualizarUsuario() {
@@ -166,7 +209,7 @@ public class GerenciadorUsuarios {
     }
     private void mudarTipo(Usuario user) {
         System.out.println("[1] Funcionário");
-        System.out.println("[2] Estudante");
+        System.out.println("[2] Aluno");
         System.out.println("[0] Voltar");
         int op = sc.nextInt();
         sc.nextLine();
@@ -178,7 +221,13 @@ public class GerenciadorUsuarios {
                 cadastrarFuncionario(user.getNome(), user.getEmail());
                 break;
             case 2:
-                cadastrarEstudante(user.getNome(), user.getEmail());
+                cadastrarAlunoGraduacao(user.getNome(), user.getEmail());
+                break;
+            case 3:
+                cadastrarAlunoPosGraduacao(user.getNome(), user.getEmail());
+                break;
+            case 4:
+                cadastrarProfessor(user.getNome(), user.getEmail());
                 break;
             case 0:
                 break;
@@ -191,7 +240,7 @@ public class GerenciadorUsuarios {
 
     //DELETAR USUÁRIOS
     private void deletarUsuario() {
-        System.out.println("Digite o ID do usuário que deseja editar: ");
+        System.out.println("Digite o ID do usuário que deseja deletar: ");
         int id = sc.nextInt();
         sc.nextLine();
 
