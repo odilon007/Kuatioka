@@ -10,7 +10,7 @@ public class Funcionario extends Usuario {
 
     @Override
     public String getTipo() {
-        return "Funcionario";
+        return "Funcionario Administrativo";
     }
 
     public float getSalario() {
