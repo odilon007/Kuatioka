@@ -1,6 +1,8 @@
 package app;
 
 import dominio.Usuario;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import repository.RepositorioUsuarios;
@@ -19,8 +21,15 @@ public class Sistema {
         int op;
         do {
             menu.inicial();
-            op = sc.nextInt();
-            executarOperacao(op);
+            try {
+                op = sc.nextInt();
+                sc.nextLine();
+                executarOperacao(op);
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida");
+                sc.nextLine();
+                return;
+            }
         } while (op != 0);
     }
 
