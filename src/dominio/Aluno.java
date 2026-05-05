@@ -2,6 +2,7 @@ package dominio;
 
 public class Aluno extends Usuario {
     private String matricula;
+    private int emprestimos=0;
 
     public Aluno(String nome, String email, String matricula) {
         super(nome, email);

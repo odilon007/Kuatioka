@@ -37,6 +37,14 @@ public class Menu {
         System.out.println("[0] Voltar");
     }
 
+    public void cadastrarUsuario() {
+        System.out.println("[1] Funcionário Administrativo");
+        System.out.println("[2] Aluno Graduação");
+        System.out.println("[3] Aluno Pós-Graduação");
+        System.out.println("[4] Professor");
+        System.out.println("[0] Voltar");
+    }
+
     public void opInvalido() {
         System.out.println("Opção inválida");
     }

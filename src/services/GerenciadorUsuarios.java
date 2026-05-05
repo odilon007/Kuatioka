@@ -4,6 +4,7 @@ import dominio.*;
 import repository.RepositorioUsuarios;
 import ui.Menu;
 
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -24,9 +25,15 @@ public class GerenciadorUsuarios {
         int op = -1;
         do {
             menu.gerenciarUsuarios();
-            op = sc.nextInt();
-            sc.nextLine();
-            gerenciar(op);
+            try {
+                op = sc.nextInt();
+                sc.nextLine();
+                gerenciar(op);
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida");
+                sc.nextLine();
+                return;
+            }
         } while (op !=  0);
     }
 
@@ -52,14 +59,16 @@ public class GerenciadorUsuarios {
 
     // CADASTRAR USUÁRIOS
     private void cadastrarUsuario() {
-        System.out.println("[1] Funcionário Administrativo");
-        System.out.println("[2] Aluno Graduação");
-        System.out.println("[3] Aluno Pós-Graduação");
-        System.out.println("[4] Professor");
-        System.out.println("[0] Voltar");
-
-        int op = sc.nextInt();
-        sc.nextLine();
+        menu.cadastrarUsuario();
+        int op;
+        try {
+            op = sc.nextInt();
+            sc.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada inválida");
+            sc.nextLine();
+            return;
+        }
 
         if (op > 4 || op <= 0) return;
 
